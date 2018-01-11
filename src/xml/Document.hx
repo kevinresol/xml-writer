@@ -19,6 +19,6 @@ class Document {
 		return doc;
 	}
 	
-	public function toString()
+	public inline function toString()
 		return toXml().toString();
 }

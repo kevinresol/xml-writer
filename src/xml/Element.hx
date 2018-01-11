@@ -16,6 +16,9 @@ abstract Element(Node) to Node to Xml  {
 		return cast this;
 	}
 	
+	public inline function addText(v:String):Element
+		return add(new PCData(v));
+	
 	public inline function insert(node:Node, index:Int):Element {
 		this.xml.insertChild(node, index);
 		return cast this;
@@ -31,7 +34,7 @@ abstract Element(Node) to Node to Xml  {
 	inline function get_attributes()
 		return @:privateAccess this.xml.attributeMap;
 	
-	public inline function setAttribute(name:String, value:String):Element {
+	public inline function setAttribute(name:String, value:AttributeValue):Element {
 		attributes.set(name, value);
 		return cast this;
 	}
