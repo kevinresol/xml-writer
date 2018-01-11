@@ -1,0 +1,14 @@
+{
+  "name": "xml-writer",
+  "license": "MIT",
+  "tags": [
+    "xml"
+  ],
+  "classPath": "src",
+  "contributors": [
+    "kevinresol"
+  ],
+  "releasenote": "initial release",
+  "version": "0.0.0",
+  "dependencies": {}
+}
