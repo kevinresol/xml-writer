@@ -1,24 +1,6 @@
 package xml;
 
-@:forward
-abstract Document(DocumentBase) {
-	public inline function new(?processingInstruction:ProcessingInstruction, ?docType:DocType, root:Element)
-		this = new DocumentBase(processingInstruction, docType, root);
-	
-	@:to
-	public inline function toNode():Node
-		return this.toXml();
-		
-	@:to
-	public inline function toXml():Xml
-		return this.toXml();
-	
-	@:to
-	public inline function toString():String
-		return this.toXml().toString();
-}
-
-class DocumentBase {
+class Document {
 	public var processingInstruction:ProcessingInstruction;
 	public var docType:DocType;
 	public var root:Element;
@@ -36,4 +18,7 @@ class DocumentBase {
 		doc.addChild(root);
 		return doc;
 	}
+	
+	public function toString()
+		return toXml().toString();
 }
