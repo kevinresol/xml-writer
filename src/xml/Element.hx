@@ -1,13 +1,13 @@
 package xml;
 
 @:forward
-abstract Element(ContainerNode) to Node to Xml  {
+abstract Element(Node) to Node to Xml  {
 	
 	public var name(get, set):String;
 	public var attributes(get, never):Map<String, String>;
 	
 	public function new(tag) {
-		this = new ContainerNode(Element);
+		this = new Node(Element);
 		set_name(tag);
 	}
 	
@@ -15,6 +15,18 @@ abstract Element(ContainerNode) to Node to Xml  {
 		this.xml.addChild(node);
 		return cast this;
 	}
+	
+	public inline function insert(node:Node, index:Int):Element {
+		this.xml.insertChild(node, index);
+		return cast this;
+	}
+	
+	public inline function remove(node:Node)
+		return this.xml.removeChild(node);
+	
+	public inline function iterator()
+		// return this.xml.iterator();
+		return @:privateAccess this.xml.children.iterator();
 	
 	inline function get_attributes()
 		return @:privateAccess this.xml.attributeMap;

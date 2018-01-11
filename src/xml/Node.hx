@@ -1,6 +1,6 @@
 package xml;
 
-abstract Node(Xml) to Xml {
+abstract Node(Xml) from Xml to Xml {
 	public var xml(get, never):Xml;
 	public var type(get, never):Xml.XmlType;
 	

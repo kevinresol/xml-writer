@@ -1,19 +1,39 @@
 package xml;
 
 @:forward
-abstract Document(ContainerNode) to Node to Xml  {
-	public inline function new(?processingInstruction:ProcessingInstruction, ?docType:DocType) {
-		this = new ContainerNode(Document);
-		if(processingInstruction != null) this.add(processingInstruction);
-		if(docType != null) this.add(docType);
-	}
+abstract Document(DocumentBase) {
+	public inline function new(?processingInstruction:ProcessingInstruction, ?docType:DocType, root:Element)
+		this = new DocumentBase(processingInstruction, docType, root);
+	
+	@:to
+	public inline function toNode():Node
+		return this.toXml();
 		
-	public inline function add(node:Node):Document {
-		this.xml.addChild(node);
-		return cast this;
-	}
+	@:to
+	public inline function toXml():Xml
+		return this.toXml();
 	
 	@:to
 	public inline function toString():String
-		return this.toString();
+		return this.toXml().toString();
+}
+
+class DocumentBase {
+	public var processingInstruction:ProcessingInstruction;
+	public var docType:DocType;
+	public var root:Element;
+	
+	public function new(?processingInstruction:ProcessingInstruction, ?docType:DocType, root:Element) {
+		this.processingInstruction = processingInstruction;
+		this.docType = docType;
+		this.root = root;
+	}
+	
+	public function toXml() {
+		var doc = Xml.createDocument();
+		if(processingInstruction != null) doc.addChild(processingInstruction);
+		if(docType != null) doc.addChild(docType);
+		doc.addChild(root);
+		return doc;
+	}
 }
